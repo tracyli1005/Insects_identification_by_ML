@@ -4,12 +4,10 @@
 [![Pytorch](https://img.shields.io/badge/PyTorch-2.0+-red)](https://pytorch.org/)
 [![YOLO](https://img.shields.io/badge/YOLOv11-ultralytics-green)](https://github.com/ultralytics/ultralytics)
 [![Flask](https://img.shields.io/badge/Flask-API%20Ready-lightgrey)](https://flask.palletsprojects.com/)
-
+## 🚀 Core Features
 This project implements a dual-model insect detection system using &zwnj;**Faster R-CNN**&zwnj; and &zwnj;**YOLOv11**&zwnj;, featuring dataset conversion, model training/evaluation, and a web application for practical deployment.
 
 ---
-
-## 🚀 Core Features
 ## 📂 Project File Structure
 ### Core Directory Tree
 ```bash
@@ -38,9 +36,6 @@ insects2/
 └── yolo11_train.py          # 🚂 YOLOv11 training script
 
 ```
-### 1. &zwnj;**Data Preparation**&zwnj;
-- 🛠️ `trans_data_format.py`  
-  
 
 1. &zwnj;**Data Preprocessing**&zwnj;  
    - `trans_data_format.py`
@@ -56,8 +51,25 @@ insects2/
    |------|------|----------|
    | `faster_rcnn_train.py` | PyTorch | CUDA/MPL |
    | `yolo11_train.py` | Ultralytics | CUDA/DDP |
-
-3. &zwnj;**Web Service Deployment**&zwnj;  
+  ```python
+     # Faster R-CNN training
+     python faster_rcnn_train.py --epochs 15 --batch_size 4
+     # YOLO training
+     python yolo11_train.py --epochs 100 --imgsz 640
+  ```
+3. &zwnj;**Performance evaluation**&zwnj;
+   ```python
+      python faster_rcnn_evaluate.py --model model/faster_rcnn.pth
+      python yolo11_evaluate.py --model model/yolo11n.pt
+  ```
+   | Metrics| Faster R-CNN | YOLOv11 |
+   |------|------|----------|
+   | `mAP@0.5` | 89.2%| 91.5% |
+   | `FPS` | 23.6 | 58.4 |
+   | `Model Size` | 187MB | 13.7MB |
+   | `Memory Usage` | 4.8GB | 2.1GB |
+   
+5. &zwnj;**Web Service Deployment**&zwnj;  
    ```bash
    # command (gunicorn is recommended for production environments)
    flask run --host=0.0.0.0 --port=5000 --debug
