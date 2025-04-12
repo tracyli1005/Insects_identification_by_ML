@@ -1,0 +1,289 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insect Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .upload-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .results-section {
+            display: none;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .flex-container {
+            display: flex;
+            gap: 20px;
+        }
+        .image-container {
+            flex: 1;
+        }
+        .text-container {
+            flex: 1;
+        }
+        .result-image {
+            max-width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .detection-text {
+            font-family: monospace;
+            white-space: pre-wrap;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-y: auto;
+            max-height: 500px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+        button, .file-input-label {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover, .file-input-label:hover {
+            background-color: #2980b9;
+        }
+        .file-input {
+            display: none;
+        }
+        .selected-file {
+            margin-top: 10px;
+            font-style: italic;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .error-message {
+            color: #e74c3c;
+            padding: 10px;
+            background-color: #fadbd8;
+            border-radius: 4px;
+            margin-top: 10px;
+            display: none;
+        }
+        .try-again-btn {
+            background-color: #2ecc71;
+        }
+        .try-again-btn:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+    <h1>Insect Detection System</h1>
+    
+    <div class="container">
+        <div class="upload-section" id="upload-section">
+            <h2>Upload an Image</h2>
+            <div class="form-group">
+                <label for="model-select">Select Detection Model:</label>
+                <select id="model-select">
+                    <option value="faster_rcnn">Faster R-CNN</option>
+                    <option value="yolov11">YOLOv11</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label class="file-input-label" for="file-input">Choose Image</label>
+                <input type="file" id="file-input" class="file-input" accept=".jpg, .jpeg, .png, .bmp">
+                <div class="selected-file" id="selected-file">No file selected</div>
+            </div>
+            
+            <div class="buttons">
+                <button id="detect-btn" disabled>Detect Insects</button>
+            </div>
+            
+            <div class="error-message" id="error-message"></div>
+        </div>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Processing image... Please wait.</p>
+        </div>
+        
+        <div class="results-section" id="results-section">
+            <h2>Detection Results</h2>
+            <p id="model-used"></p>
+            
+            <div class="flex-container">
+                <div class="image-container">
+                    <h3>Detected Image</h3>
+                    <img id="result-image" class="result-image" src="" alt="Detection Result">
+                </div>
+                
+                <div class="text-container">
+                    <h3>Detection Details</h3>
+                    <div class="detection-text" id="detection-text"></div>
+                </div>
+            </div>
+            
+            <div class="buttons" style="margin-top: 20px;">
+                <button class="try-again-btn" id="try-again-btn">Try Another Image</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // DOM elements
+        const fileInput = document.getElementById('file-input');
+        const selectedFileText = document.getElementById('selected-file');
+        const detectBtn = document.getElementById('detect-btn');
+        const modelSelect = document.getElementById('model-select');
+        const uploadSection = document.getElementById('upload-section');
+        const loadingSection = document.getElementById('loading');
+        const resultsSection = document.getElementById('results-section');
+        const resultImage = document.getElementById('result-image');
+        const detectionText = document.getElementById('detection-text');
+        const modelUsed = document.getElementById('model-used');
+        const tryAgainBtn = document.getElementById('try-again-btn');
+        const errorMessage = document.getElementById('error-message');
+        
+        // Event listeners
+        fileInput.addEventListener('change', function() {
+            if (this.files.length > 0) {
+                selectedFileText.textContent = `Selected file: ${this.files[0].name}`;
+                detectBtn.disabled = false;
+            } else {
+                selectedFileText.textContent = 'No file selected';
+                detectBtn.disabled = true;
+            }
+            errorMessage.style.display = 'none';
+        });
+        
+        detectBtn.addEventListener('click', detectInsects);
+        tryAgainBtn.addEventListener('click', resetForm);
+        
+        // Functions
+        function detectInsects() {
+            const file = fileInput.files[0];
+            if (!file) {
+                showError('Please select a file first.');
+                return;
+            }
+            
+            // Validate file type
+            const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/bmp'];
+            if (!validTypes.includes(file.type)) {
+                showError('Invalid file type. Please select a JPG, PNG, or BMP image.');
+                return;
+            }
+            
+            // Validate file size (5MB max)
+            if (file.size > 5 * 1024 * 1024) {
+                showError('File too large. Maximum size is 5MB.');
+                return;
+            }
+            
+            // Show loading state
+            uploadSection.style.display = 'none';
+            loadingSection.style.display = 'block';
+            resultsSection.style.display = 'none';
+            
+            // Create form data
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('model', modelSelect.value);
+            
+            // Send request to server
+            fetch('/detect', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Hide loading
+                loadingSection.style.display = 'none';
+                
+                if (data.error) {
+                    uploadSection.style.display = 'block';
+                    showError(data.error);
+                    return;
+                }
+                
+                // Show results
+                resultsSection.style.display = 'block';
+                resultImage.src = data.image_url;
+                detectionText.textContent = data.detection_text;
+                modelUsed.textContent = `Model used: ${data.model}`;
+            })
+            .catch(error => {
+                loadingSection.style.display = 'none';
+                uploadSection.style.display = 'block';
+                showError('An error occurred during processing. Please try again.');
+                console.error('Error:', error);
+            });
+        }
+        
+        function resetForm() {
+            // Reset form and show upload section
+            fileInput.value = '';
+            selectedFileText.textContent = 'No file selected';
+            detectBtn.disabled = true;
+            errorMessage.style.display = 'none';
+            
+            uploadSection.style.display = 'block';
+            resultsSection.style.display = 'none';
+        }
+        
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
