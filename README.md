@@ -58,10 +58,11 @@ insects2/
      python yolo11_train.py --epochs 100 --imgsz 640
   ```
 3. &zwnj;**Performance evaluation**&zwnj;
-   ```python
+  ```python
       python faster_rcnn_evaluate.py --model model/faster_rcnn.pth
       python yolo11_evaluate.py --model model/yolo11n.pt
   ```
+
    | Metrics| Faster R-CNN | YOLOv11 |
    |------|------|----------|
    | `mAP@0.5` | 89.2%| 91.5% |
