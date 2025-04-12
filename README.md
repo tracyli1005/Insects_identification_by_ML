@@ -77,7 +77,7 @@ insects2/
 
    ![QQ_1744441902480](https://github.com/user-attachments/assets/a5bced5b-9b6d-4e07-97d4-80f7de0e43a6)
 
-   ![QQ_1744442138624](https://github.com/user-attachments/assets/7fff17c7-c612-476f-a2dd-f21397f325db)
+   ![QQ_1744444522382](https://github.com/user-attachments/assets/bab01a85-e350-451c-bd90-f79fcf96531b)
 
    ![QQ_1744443357123](https://github.com/user-attachments/assets/76a7f76d-aec2-4eee-b06a-1c27eb6e9bfd)
 
