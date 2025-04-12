@@ -65,7 +65,7 @@ insects2/
 
    | Metrics| Faster R-CNN | YOLOv11 |
    |------|------|----------|
-   | mAP@0.5 | 89.2%| 91.5% |
+   | mAP@0.5 | 89.2%| 81.5% |
    | FPS | 23.6 | 58.4 |
    | Model Size | 187MB | 13.7MB |
    | Memory Usage | 4.8GB | 2.1GB |
@@ -76,6 +76,22 @@ insects2/
    ![QQ_1744441745076](https://github.com/user-attachments/assets/99412546-9a78-4711-a28d-dc60f8431559)
 
    ![QQ_1744441902480](https://github.com/user-attachments/assets/a5bced5b-9b6d-4e07-97d4-80f7de0e43a6)
+
+   ![QQ_1744442138624](https://github.com/user-attachments/assets/7fff17c7-c612-476f-a2dd-f21397f325db)
+
+   ![QQ_1744442509506](https://github.com/user-attachments/assets/f5333e90-3ef9-458f-b8ae-1f943834cbce)
+   
+5. &zwnj;**Web Service Deployment**&zwnj;  
+   ```bash
+   # Command(Gunicorn is recommended for production environments)
+   flask run --host=0.0.0.0 --port=5000 --debug
+   ```
+
+6. &zwnj;**Next step**&zwnj;  
+   As existing insect datasets (e.g., Kaggle) often lack diverse, high-quality images of insects in real-world settings (e.g., urban environments, natural habitats),I plan to collect insect data from Tiktok user generated videos to augment training data to improve model robustness across varied environments, validate the model’s performance on "in-the-wild" images, and explore potential usage scenario of the model, such as: mapping the geographic distribution of insects tagged in #insects videos by cross-referencing video metadata (creator location), assess risks posed by invasive species or harmful interactions observed in user-generated content.
+
+ 
+
 
 
    
