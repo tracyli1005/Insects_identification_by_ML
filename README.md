@@ -40,25 +40,25 @@ insects2/
 ```
 ### 1. &zwnj;**Data Preparation**&zwnj;
 - 🛠️ `trans_data_format.py`  
-  Converts XML annotations to YOLO format:insects/yolo11_dataset
+  
 
-1. &zwnj;**数据预处理**&zwnj;  
-   - `trans_data_format.py`  
+1. &zwnj;**Data Preprocessing**&zwnj;  
+   - `trans_data_format.py`
+   Converts XML annotations to YOLO format:insects/yolo11_dataset
      ```python
-     # 示例调用命令
+     # example code
      python trans_data_format.py --input insects/ --output insects/yolo_dataset
      ```
-     ▸ 支持多线程转换  
-     ▸ 自动生成`data.yaml`配置文件
+     ▸ Generate `data.yaml` configuration file
 
-2. &zwnj;**模型训练双引擎**&zwnj;  
-   | 脚本 | 框架 | 加速支持 |
+2. &zwnj;**Dual model training**&zwnj;  
+   | Script | Framework | Acceleration |
    |------|------|----------|
    | `faster_rcnn_train.py` | PyTorch | CUDA/MPL |
    | `yolo11_train.py` | Ultralytics | CUDA/DDP |
 
-3. &zwnj;**Web服务部署**&zwnj;  
+3. &zwnj;**Web Service Deployment**&zwnj;  
    ```bash
-   # 启动命令（生产环境建议使用gunicorn）
+   # command (gunicorn is recommended for production environments)
    flask run --host=0.0.0.0 --port=5000 --debug
-
+   ```
