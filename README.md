@@ -65,13 +65,18 @@ insects2/
 
    | Metrics| Faster R-CNN | YOLOv11 |
    |------|------|----------|
-   | `mAP@0.5` | 89.2%| 91.5% |
-   | `FPS` | 23.6 | 58.4 |
-   | `Model Size` | 187MB | 13.7MB |
-   | `Memory Usage` | 4.8GB | 2.1GB |
+   | mAP@0.5 | 89.2%| 91.5% |
+   | FPS | 23.6 | 58.4 |
+   | Model Size | 187MB | 13.7MB |
+   | Memory Usage | 4.8GB | 2.1GB |
    
-5. &zwnj;**Web Service Deployment**&zwnj;  
-   ```bash
-   # command (gunicorn is recommended for production environments)
-   flask run --host=0.0.0.0 --port=5000 --debug
-   ```
+4. &zwnj;**Testing with agriculture pests dataset**&zwnj;
+   7 categories: 'Boerner', 'Leconte', 'Linnaeus', 'acuminatus', 'armandi', 'coleoptera', 'linnaeus'
+   Testing flow:
+   ![QQ_1744441745076](https://github.com/user-attachments/assets/99412546-9a78-4711-a28d-dc60f8431559)
+
+   ![QQ_1744441902480](https://github.com/user-attachments/assets/a5bced5b-9b6d-4e07-97d4-80f7de0e43a6)
+
+
+   
+   
