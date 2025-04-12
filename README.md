@@ -79,15 +79,16 @@ insects2/
 
    ![QQ_1744442138624](https://github.com/user-attachments/assets/7fff17c7-c612-476f-a2dd-f21397f325db)
 
-   ![QQ_1744442509506](https://github.com/user-attachments/assets/f5333e90-3ef9-458f-b8ae-1f943834cbce)
+   ![QQ_1744443357123](https://github.com/user-attachments/assets/76a7f76d-aec2-4eee-b06a-1c27eb6e9bfd)
+
    
 5. &zwnj;**Web Service Deployment**&zwnj;  
    ```bash
    # Command(Gunicorn is recommended for production environments)
    flask run --host=0.0.0.0 --port=5000 --debug
    ```
-
-6. &zwnj;**Next step**&zwnj;  
+---
+## 🚀 Next step 
    As existing insect datasets (e.g., Kaggle) often lack diverse, high-quality images of insects in real-world settings (e.g., urban environments, natural habitats),I plan to collect insect data from Tiktok user generated videos to augment training data to improve model robustness across varied environments, validate the model’s performance on "in-the-wild" images, and explore potential usage scenario of the model, such as: mapping the geographic distribution of insects tagged in #insects videos by cross-referencing video metadata (creator location), assess risks posed by invasive species or harmful interactions observed in user-generated content.
 
  
