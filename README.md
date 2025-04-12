@@ -90,6 +90,9 @@ insects2/
 ---
 ## 🚀 Next step 
    As existing insect datasets (e.g., Kaggle) often lack diverse, high-quality images of insects in real-world settings (e.g., urban environments, natural habitats),I plan to collect insect data from Tiktok user generated videos to augment training data to improve model robustness across varied environments, validate the model’s performance on "in-the-wild" images, and explore potential usage scenario of the model, such as: mapping the geographic distribution of insects tagged in #insects videos by cross-referencing video metadata (creator location), assess risks posed by invasive species or harmful interactions observed in user-generated content.
+   Some initial attempts as below (to be updated)
+   ![val_batch0_labels](https://github.com/user-attachments/assets/3f4a8a9c-a329-4cc7-aaf4-fd0ed74d22a3)
+
 
  
 
