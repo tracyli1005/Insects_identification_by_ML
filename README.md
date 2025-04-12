@@ -14,6 +14,7 @@ This project implements a dual-model insect detection system using &zwnj;**Faste
 - 🛠️ `trans_data_format.py`  
   Converts XML annotations to YOLO format:insects/yolo11_dataset
 insects/yolo11_dataset
-├── images/          # 训练/验证/测试集图片
-├── labels/          # YOLO格式标签
-└── data.yaml        # 数据集配置文件
+├── images/          # 训练/验证/测试集图片.
+├── labels/          # YOLO格式标签.
+└── data.yaml        # 数据集配置文件.
+
